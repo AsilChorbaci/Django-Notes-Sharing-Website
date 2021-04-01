@@ -1,3 +1,4 @@
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 from django.contrib import admin
 
@@ -39,7 +40,7 @@ class Note(models.Model):
     keywords = models.CharField(blank=True,max_length=255)
     description = models.CharField(blank=True,max_length=255)
     image = models.ImageField(blank=True, upload_to='images/')
-    detail = models.TextField()
+    detail = RichTextUploadingField()
     slug = models.SlugField(null=False, unique=True)
     status = models.CharField(max_length=10, choices=STATUS)
     create_at = models.DateTimeField(auto_now_add=True)

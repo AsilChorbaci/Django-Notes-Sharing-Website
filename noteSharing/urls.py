@@ -21,6 +21,7 @@ urlpatterns = [
     path('note/', include('notes.urls')),
     path('home/', include('home.urls')),
     path('admin/', admin.site.urls),
+    path(r'^ckeditor/', include('ckeditor_uploader.urls')),
 
 
 ]
