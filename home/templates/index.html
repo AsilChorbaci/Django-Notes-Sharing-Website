@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>Welcome</h1>
-<p>Home Page</p>
-</body>
-</html>
+{% extends "homebase.html" %}
+{% block title %} Index {% endblock %}
+
+{% block slider %}
+    {% include "slider.html" %}
+{% endblock %}
+
+{% block content %}
+    {% include "content.html" %}
+{% endblock %}
