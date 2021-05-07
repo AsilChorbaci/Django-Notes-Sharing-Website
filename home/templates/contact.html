@@ -77,20 +77,29 @@
           </div>
           <div class="col-md-7">
             <h4 class="mt-0 mb-30 line-bottom">Interested in discussing?</h4>
-            <!-- Contact Form -->
-            <form id="contact_form" name="contact_form" class="" action="#" method="post">
 
-              <div class="row">
+              {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }}" role="alert">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+              {% endif %}
+
+            <!-- Contact Form -->
+            <form id="contact_form" name="contact_form" class="" action="{% url "contact" %}" method="post">
+                {% csrf_token %}
+             <div class="row">
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="form_name">Name <small>*</small></label>
-                    <input name="form_name" class="form-control" type="text" placeholder="Enter Name" required="">
+                    <input name="name" class="form-control" type="text" placeholder="Enter Name" required="">
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label>Email <small>*</small></label>
-                    <input name="form_email" class="form-control required email" type="email" placeholder="Enter Email">
+                    <input name="email" class="form-control required email" type="email" placeholder="Enter Email">
                   </div>
                 </div>
               </div>
@@ -98,20 +107,20 @@
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="form_name">Subject <small>*</small></label>
-                    <input name="form_subject" class="form-control required" type="text" placeholder="Enter Subject">
+                    <input name="subject" class="form-control required" type="text" placeholder="Enter Subject">
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="form-group">
                     <label for="form_phone">Phone</label>
-                    <input name="form_phone" class="form-control" type="text" placeholder="Enter Phone">
+                    <input name="phone" class="form-control" type="text" placeholder="Enter Phone">
                   </div>
                 </div>
               </div>
 
               <div class="form-group">
                 <label for="form_name">Message</label>
-                <textarea name="form_message" class="form-control required" rows="5" placeholder="Enter Message"></textarea>
+                <textarea name="message" class="form-control required" rows="5" placeholder="Enter Message"></textarea>
               </div>
               <div class="form-group">
                 <input name="form_botcheck" class="form-control" type="hidden" value="" />
