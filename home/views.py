@@ -10,7 +10,8 @@ from notes.models import Category
 def index(request):
 
     setting = Setting.objects.get(pk=1)
-    context = {'setting': setting}
+    category = Category.objects.all()
+    context = {'setting': setting, 'page': 'page', 'category': category}
     return render(request,'index.html', context)
 
 

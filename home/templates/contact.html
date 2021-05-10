@@ -3,10 +3,11 @@
 
 
 {% block content %}
+    {% load static %}
       <!-- Start main-content -->
   <div class="main-content bg-lighter">
     <!-- Section: inner-header -->
-    <section class="inner-header divider parallax layer-overlay overlay-dark-5" data-bg-img="images/bg/bg6.jpg">
+    <section class="inner-header divider parallax layer-overlay overlay-dark-5" data-bg-img="{% static 'images/bg/bg6.jpg' %}">
       <div class="container pt-70 pb-20">
         <!-- Section Content -->
         <div class="section-content">
@@ -73,7 +74,7 @@
           </div>
           <!-- Google Map Javascript Codes -->
           <script src="http://maps.google.com/maps/api/js?key=AIzaSyAYWE4mHmR9GyPsHSOVZrSCOOljk8DU9B4"></script>
-          <script src="js/google-map-init.js"></script>
+          <script src="{% static 'js/google-map-init.js' %}"></script>
           </div>
           <div class="col-md-7">
             <h4 class="mt-0 mb-30 line-bottom">Interested in discussing?</h4>
