@@ -4,14 +4,15 @@ from django.shortcuts import render
 from django.template import Template,Context
 
 from home.models import Setting, ContactForm, ContactFormMessage
-from notes.models import Category
+from notes.models import Category, Note
 
 
 def index(request):
 
     setting = Setting.objects.get(pk=1)
     category = Category.objects.all()
-    context = {'setting': setting, 'page': 'page', 'category': category}
+    slider = Note.objects.all()[:3]
+    context = {'setting': setting, 'page': 'page', 'category': category, 'slider':slider}
     return render(request,'index.html', context)
 
 
