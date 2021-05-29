@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.template import Template,Context
 
 from home.models import Setting, ContactForm, ContactFormMessage
-from notes.models import Category, Note
+from notes.models import Category, Note, Images, Comment
 
 
 def index(request):
@@ -15,10 +15,31 @@ def index(request):
     context = {'setting': setting, 'page': 'page', 'category': category, 'slider':slider}
     return render(request,'index.html', context)
 
+def note_list(request, id, slug):
+
+    category = Category.objects.all()
+    categorydata = Category.objects.get(pk=id)
+    notes = Note.objects.filter(category_id=id)
+    context = {'notes': notes,
+               'category': category,
+               'categorydata': categorydata}
+    return render(request,'note_list.html',context)
+
+def note_details(request,id,slug):
+    category = Category.objects.all()
+    note = Note.objects.get(pk=id)
+    images= Images.objects.filter(note_id=id)
+    comment= Comment.objects.filter(note_id=id, status='True')
+    context = {'note': note,
+               'category': category,
+               'images': images,
+               'comment': comment}
+    return render(request,'note_details.html',context)
 
 def about(request):
     setting = Setting.objects.get(pk=1)
-    context = {'setting': setting}
+    category = Category.objects.all()
+    context = {'setting': setting, 'category': category}
     return render(request, 'about.html', context)
 
 def contact(request):

@@ -28,6 +28,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('about/', views.about, name='about'),
     path('contact/', views.contact, name='contact'),
+    path('category/<int:id>/<slug:slug>/', views.note_list, name='note_list'),
+    path('note/<int:id>/<slug>/', views.note_details, name='note_detail'),
     path(r'^ckeditor/', include('ckeditor_uploader.urls')),
 
 

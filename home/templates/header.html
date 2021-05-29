@@ -54,10 +54,10 @@
                 <li><a href="/about">About</a></li>
 
                 {% recursetree category %}
-                <li><a href="#courses">{{ node.title }}</a>
+                <li><a href="/category/{{ node.id }}/{{ node.slug }}" {% if not node.is_leaf_node %}{% endif %}>{{ node.title }}</a>
                       {% if not node.is_leaf_node %}
                           <ul class="dropdown">
-                          <li><a href="index-mp-layout1.html">{{ children }}</a></li>
+                             <li>{{ children }}</li>
                           </ul>
                       {% endif %}
                  </li>
