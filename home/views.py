@@ -1,8 +1,11 @@
+import json
+
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.template import Template,Context
 
+from home.forms import SearchForm
 from home.models import Setting, ContactForm, ContactFormMessage
 from notes.models import Category, Note, Images, Comment
 
@@ -15,6 +18,15 @@ def index(request):
     context = {'setting': setting, 'page': 'page', 'category': category, 'slider':slider}
     return render(request,'index.html', context)
 
+def category_notes(request,id,slug):
+    category = Category.objects.all()
+    categorydata = Category.objects.get(pk=id)
+    notes = Note.objects.filter(category_id=id)
+    context = {'notes': notes,
+               'category': category,
+               'categorydata': categorydata}
+    return render(request,'notes.html',context)
+
 def note_list(request, id, slug):
 
     category = Category.objects.all()
@@ -23,7 +35,7 @@ def note_list(request, id, slug):
     context = {'notes': notes,
                'category': category,
                'categorydata': categorydata}
-    return render(request,'note_list.html',context)
+    return render(request,'notes.html',context)
 
 def note_details(request,id,slug):
     category = Category.objects.all()
@@ -62,3 +74,38 @@ def contact(request):
     category = Category.objects.all()
     context = {'setting': setting, 'form': form, 'category': category}
     return render(request, 'contact.html', context)
+
+def note_search(request):
+    if request.method == 'POST':
+        form= SearchForm(request.POST)
+        if form.is_valid():
+            category = Category.objects.all()
+
+            query = form.cleaned_data['query']
+            catid = form.cleaned_data['catid']
+            if catid ==0:
+                notes=Note.objects.filter(title__icontains=query)
+            else:
+                notes= Note.objects.filter(title__icontains=query, category_id=catid)
+
+            #return HttpResponse(notes)
+            context = {'notes': notes,
+                       'category': category,
+                       }
+            return render(request, 'notes.html',context)
+    return HttpResponseRedirect('/')
+
+def note_search_auto(request):
+  if request.is_ajax():
+    q = request.GET.get('term', '')
+    notes = Note.objects.filter(title__icontains=q)
+    results = []
+    for rs in notes:
+      note_json = {}
+      note_json = rs.title
+      results.append(note_json)
+    data = json.dumps(results)
+  else:
+    data = 'fail'
+  mimetype = 'application/json'
+  return HttpResponse(data, mimetype)

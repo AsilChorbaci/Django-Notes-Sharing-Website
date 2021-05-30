@@ -52,7 +52,6 @@
                 <li class="active"><a href="#home">Home</a></li>
 
                 <li><a href="/about">About</a></li>
-
                 {% recursetree category %}
                 <li><a href="/category/{{ node.id }}/{{ node.slug }}" {% if not node.is_leaf_node %}{% endif %}>{{ node.title }}</a>
                       {% if not node.is_leaf_node %}
@@ -60,7 +59,7 @@
                              <li>{{ children }}</li>
                           </ul>
                       {% endif %}
-                 </li>
+                </li>
                 {% endrecursetree %}
               <li><a href="#teachers">Teachers</a></li>
               <li><a href="#gallery">Gallery</a></li>

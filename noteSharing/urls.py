@@ -30,9 +30,9 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),
     path('category/<int:id>/<slug:slug>/', views.note_list, name='note_list'),
     path('note/<int:id>/<slug>/', views.note_details, name='note_detail'),
+    path('search/', views.note_search, name="note_search"),
+    path('search-auto/', views.note_search_auto, name="note_search"),
     path(r'^ckeditor/', include('ckeditor_uploader.urls')),
-
-
 
 ]
 if settings.DEBUG:
