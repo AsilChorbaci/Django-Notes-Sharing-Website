@@ -45,7 +45,7 @@
                             <a class="btn btn-theme-colored btn-sm btn-flat pl-20 pr-20 btn-add-to-cart text-uppercase font-weight-700" href="#">Add To Cart</a>
                           </div>
                           <div class="btn-product-view-details">
-                            <a class="btn btn-default btn-theme-colored btn-sm btn-flat pl-20 pr-20 btn-add-to-cart text-uppercase font-weight-700" href="shop-product-details.html">View detail</a>
+                            <a class="btn btn-default btn-theme-colored btn-sm btn-flat pl-20 pr-20 btn-add-to-cart text-uppercase font-weight-700" href="/note/{{ rs.id }}/{{ rs.slug }}">View detail</a>
                           </div>
                         </div>
                       </div>
@@ -64,8 +64,7 @@
               <div class="sidebar sidebar-right mt-sm-30">
                 <div class="widget">
                   <h5 class="widget-title line-bottom">Search box</h5>
-                  <div class="search-form">
-                      <script>
+                    <script>
                         $(function () {
                             $("#query").autocomplete({
                                 source: "/search-auto/",
@@ -80,6 +79,7 @@
                             var selectedObj = ui.item;
                         }
                     </script>
+                  <div class="search-form">
                     <form action="/search/" method="post">
                         {% csrf_token %}
                       <div class="input-group">

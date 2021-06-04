@@ -35,13 +35,13 @@ def note_list(request, id, slug):
     context = {'notes': notes,
                'category': category,
                'categorydata': categorydata}
-    return render(request,'notes.html',context)
+    return render(request,'note_list.html',context)
 
 def note_details(request,id,slug):
     category = Category.objects.all()
     note = Note.objects.get(pk=id)
-    images= Images.objects.filter(note_id=id)
-    comment= Comment.objects.filter(note_id=id, status='True')
+    images = Images.objects.filter(note_id=id)
+    comment = Comment.objects.filter(note_id=id, status='True')
     context = {'note': note,
                'category': category,
                'images': images,

@@ -4,7 +4,8 @@ from django.contrib import admin
 from django.utils.html import format_html
 from mptt.admin import MPTTModelAdmin, DraggableMPTTAdmin
 
-from notes.models import Category, Note, Images
+from notes.models import Category, Note, Images, Comment
+
 
 class NoteImageInline(admin.TabularInline):
     model = Images
@@ -61,6 +62,13 @@ class ImagesAdmin(admin.ModelAdmin):
     list_display = ['title', 'note']
     #readonly_fields = ('image_tag',)
 
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ['subject', 'comment', 'note', 'user', 'status']
+    list_filter = ['status']
+    readonly_fields = ('subject', 'comment', 'ip', 'user', 'note', 'rate')
+
+
 admin.site.register(Category , CategoryAdmin2)
 admin.site.register(Note , NoteAdmin)
+admin.site.register(Comment, CommentAdmin)
 admin.site.register(Images)
