@@ -20,6 +20,7 @@ from django.conf import settings
 
 from home import views
 from noteSharing import settings
+from user import views as UserViews
 
 urlpatterns = [
     path('', include('home.urls')),
@@ -36,6 +37,9 @@ urlpatterns = [
     path('note/<int:id>/<slug>/', views.note_details, name='note_detail'),
     path('search/', views.note_search, name="note_search"),
     path('search-auto/', views.note_search_auto, name="note_search"),
+    path('login/', UserViews.login_form, name="login_form"),
+    path('logout/', UserViews.logout_fun, name="logout_fun"),
+    path('register/', UserViews.register_form, name="register_form"),
 
 
 ]

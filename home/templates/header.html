@@ -28,19 +28,14 @@
                   <a href="#" class="text-white">FAQ</a>
                 </li>
                 <li class="text-white">|</li>
-                <li>
-                  <a href="#" class="text-white">Help Desk</a>
-                </li>
-                <li class="text-white">|</li>
-                <li>
-                  <a href="#" class="text-white">Support</a>
-                </li>
+
               </ul>
             </div>
           </div>
         </div>
       </div>
     </div>
+
     <div class="header-nav">
       <div class="header-nav-wrapper navbar-scrolltofixed bg-white">
         <div class="container">
@@ -63,8 +58,22 @@
                 {% endrecursetree %}
               <li><a href="#teachers">Teachers</a></li>
               <li><a href="#gallery">Gallery</a></li>
-              <li><a href="#blog">Blog</a></li>
               <li><a href="/contact">Contact</a></li>
+              <li>
+                  {% if user.id is not None %}
+                  <a href="#">{{ user.username }}</a>
+
+                        <ul class="dropdown">
+                            <li><a href="#">Profile</a></li>
+                            <li><a href="/logout">Logout</a></li>
+                        </ul>
+                  {% else %}
+                      <a href="/login" >Login</a>
+                      <a href="/register" >Register</a>
+                  {% endif %}
+              </li>
+              <li class="text-white">|</li>
+              <li><img src="{{ request.session.userimage }}" style="height: 40px; border-radius: 30%"></li>
             </ul>
           </nav>
         </div>
