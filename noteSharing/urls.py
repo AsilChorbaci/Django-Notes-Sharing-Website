@@ -25,6 +25,10 @@ urlpatterns = [
     path('', include('home.urls')),
     path('note/', include('notes.urls')),
     path('home/', include('home.urls')),
+    path('order/', include('order.urls')),
+    path('user/', include('user.urls')),
+    path(r'^ckeditor/', include('ckeditor_uploader.urls')),
+
     path('admin/', admin.site.urls),
     path('about/', views.about, name='about'),
     path('contact/', views.contact, name='contact'),
@@ -32,7 +36,7 @@ urlpatterns = [
     path('note/<int:id>/<slug>/', views.note_details, name='note_detail'),
     path('search/', views.note_search, name="note_search"),
     path('search-auto/', views.note_search_auto, name="note_search"),
-    path(r'^ckeditor/', include('ckeditor_uploader.urls')),
+
 
 ]
 if settings.DEBUG:
