@@ -1,5 +1,6 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 
@@ -79,7 +80,7 @@ def user_update(request):
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            messages.success(request, 'Profilin Güncellendi')
+            messages.success(request, 'Your Profile Has Been Updated')
             return HttpResponseRedirect('/user')
     else:
         category = Category.objects.all()
@@ -94,3 +95,23 @@ def user_update(request):
             'profile':profile
         }
         return render(request, 'user_update.html', context)
+
+
+
+def change_password(request):
+    if request.method=='POST':
+        form =PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Your Password Has Been Changed')
+            return HttpResponseRedirect('/user')
+        else:
+            messages.error(request, 'Please Fix These Problems<br>'+ str(form.errors))
+            return HttpResponseRedirect('/user/password')
+    else:
+        category = Category.objects.all()
+        form =PasswordChangeForm(request.user)
+        return render(request,'change_password.html', {
+            'form': form, 'category': category
+        })
