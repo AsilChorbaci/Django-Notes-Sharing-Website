@@ -61,10 +61,10 @@
               <li><a href="/contact">Contact</a></li>
               <li>
                   {% if user.id is not None %}
-                  <a href="#">{{ user.username }}</a>
+                  <a href="#">{{ user.first_name }}</a>
 
                         <ul class="dropdown">
-                            <li><a href="#">Profile</a></li>
+                            <li><a href="/profile">Profile</a></li>
                             <li><a href="/logout">Logout</a></li>
                         </ul>
                   {% else %}

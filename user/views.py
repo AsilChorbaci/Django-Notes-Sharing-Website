@@ -10,7 +10,12 @@ from user.models import UserProfile
 
 
 def index(request):
-    return HttpResponse("User")
+    category = Category.objects.all()
+    current_user = request.user
+    profile = UserProfile.objects.get(pk=current_user.id)
+    context= {'category': category,
+              'profile': profile}
+    return render(request, 'user_profile.html',context)
 
 
 def login_form(request):
@@ -46,9 +51,9 @@ def register_form(request):
             current_user = request.user
             data = UserProfile()
             data.user_id = current_user.id
-            data.image = "images/users/user"
+            data.image = "images/users/user.jpg"
             data.save()
-            messages.success(request, "Hoşgeldiniz... Sitemize başarılı bir şekilde üye oldunuz.")
+            messages.success(request, "Registration Completed Successfully")
             return HttpResponseRedirect('/')
         else:
             messages.warning(request, form.errors)
