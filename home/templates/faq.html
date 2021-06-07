@@ -1,0 +1,68 @@
+{% extends "homebase.html" %}
+{% block title %} {{ setting.title }} {% endblock %}
+
+
+
+{% block content %}
+    {% load static %}
+  <!-- Start main-content -->
+  <div class="main-content bg-lighter">
+    <!-- Section: inner-header -->
+    <section class="inner-header divider parallax layer-overlay overlay-dark-5" data-bg-img="images/bg/bg6.jpg">
+      <div class="container pt-70 pb-20">
+        <!-- Section Content -->
+        <div class="section-content">
+          <div class="row">
+            <div class="col-md-12">
+              <h2 class="title text-white text-center">FAQ</h2>
+              <ol class="breadcrumb text-left text-black mt-10">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Pages</a></li>
+                <li class="active text-gray-silver">Page Title</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+            <div id="accordion1" class="panel-group accordion transparent">
+            {% for rs in faq %}
+              <div class="panel">
+                    <div class="panel-title"> <a data-parent="#accordion1" data-toggle="collapse" href="#accordion11" class="active" aria-expanded="true"> <span class="open-sub"></span> <strong>{{ rs.question }}</strong></a> </div>
+                    <div id="accordion11" class="panel-collapse collapse in" role="tablist" aria-expanded="true">
+                        <div class="panel-content">
+                             <p>{{ rs.answer }}</p>
+                         </div>
+                    </div>
+              </div>
+            {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- divider: what makes us different -->
+    <section class="divider parallax layer-overlay overlay-white-9" data-parallax-ratio="0.1" data-bg-img="images/bg/bg2.jpg">
+      <div class="container">
+        <div class="section-content text-center">
+          <div class="row">
+            <div class="col-md-12">
+              <h3 class="mt-0">Did not find your answer?</h3>
+              <h2>Just call at <span class="text-theme-color-2">(01) 234 5678</span> for emergency service</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <!-- end main-content -->
+
+
+
+{% endblock %}

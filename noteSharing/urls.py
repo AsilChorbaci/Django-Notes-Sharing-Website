@@ -40,6 +40,7 @@ urlpatterns = [
     path('login/', UserViews.login_form, name="login_form"),
     path('logout/', UserViews.logout_fun, name="logout_fun"),
     path('register/', UserViews.register_form, name="register_form"),
+    path('faq/', UserViews.faq, name="faq"),
 
 
 ]
