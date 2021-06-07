@@ -4,6 +4,7 @@ from django.db import models
 from django.contrib import admin
 
 # Create your models here.
+from django.db.models import Avg, Count
 from django.forms import ModelForm
 from django.utils.safestring import mark_safe
 from mptt.fields import TreeForeignKey
@@ -70,6 +71,24 @@ class Note(models.Model):
         return mark_safe('<img src="{}" height="50"/>'.format(self.image.url))
 
     image_tag.short_description = 'Image'
+
+    def get_absolute_url(self):
+        return reverse('note_details',kwargs={'slug':self.slug})
+
+    def averagereview(self):
+        reviews = Comment.objects.filter(note=self).aggregate(average = Avg('rate'))
+        avg = 0
+        if reviews["average"] is not None:
+            avg = float(reviews["average"])
+        return avg
+
+    def countreview(self):
+        reviews = Comment.objects.filter(note=self).aggregate(count = Count('id'))
+        cnt = 0
+        if reviews["count"] is not None:
+            cnt = int(reviews["count"])
+        return cnt
+
 
 class Images(models.Model):
     note = models.ForeignKey(Note, on_delete=models.CASCADE)

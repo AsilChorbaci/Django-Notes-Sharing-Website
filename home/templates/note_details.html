@@ -37,12 +37,16 @@
               <div class="col-md-7">
                 <div class="product-summary">
                   <h2 class="product-title">{{ note.title }}</h2>
-                  <div class="product_review">
                     <ul class="review_text list-inline">
                       <li>
-                        <div title="Rated 4.50 out of 5" class="star-rating"><span style="width: 90%;">4.50</span></div>
+                                    <i class="fa fa-star{% if note.averagereview < 1 %}-o empty {% endif %}"></i>
+                                    <i class="fa fa-star{% if note.averagereview < 2 %}-o empty {% endif %}"></i>
+                                    <i class="fa fa-star{% if note.averagereview < 3 %}-o empty {% endif %}"></i>
+                                    <i class="fa fa-star{% if note.averagereview < 4 %}-o empty {% endif %}"></i>
+                                    <i class="fa fa-star{% if note.averagereview < 5 %}-o empty {% endif %}"></i>
+                                    {{ note.averagereview}}
                       </li>
-                      <li><a href="#"><span>2</span>Reviews</a></li>
+                      <li><a href="#"><span>{{ note.countreview }}</span>Reviews</a></li>
                       <li><a href="#">Add reviews</a></li>
                     </ul>
                   </div>
