@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 from home.models import Setting, FAQ
-from notes.models import Category, Note, Comment
+from notes.models import Category, Note, Comment, NoteForm
 from user.forms import SignUpForm, UserUpdateForm, ProfileUpdateForm
 from user.models import UserProfile
 
@@ -148,3 +148,83 @@ def faq(request):
                'setting': setting,
                }
     return render(request, 'faq.html', context)
+
+
+
+
+@login_required(login_url='/login')  # Check login
+def addnote(request):
+    setting = Setting.objects.get(pk=1)
+    if request.method == 'POST':
+        form = NoteForm(request.POST, request.FILES)
+        if form.is_valid():
+            current_user = request.user
+            data = Note()  # model ile bağlantı kur
+            data.user_id = current_user.id
+            data.category = form.cleaned_data['category']
+            data.title = form.cleaned_data['title']
+            data.keywords = form.cleaned_data['keywords']
+            data.description = form.cleaned_data['description']
+            data.image = form.cleaned_data['image']
+            data.detail = form.cleaned_data['detail']
+            data.slug = form.cleaned_data['slug']
+            data.status = 'True'
+            data.save()  # veritabanına kaydet
+            messages.success(request, 'Your Content Insterted Successfuly')
+            return HttpResponseRedirect('/user/notes')
+        else:
+            messages.success(request, 'Note Form Error:' + str(form.errors))
+            return HttpResponseRedirect('/user/addnote')
+    else:
+        category = Category.objects.all()
+        form = NoteForm()
+        context = {
+            'category': category,
+            'form': form,
+            'setting': setting,
+        }
+        return render(request, 'user_addnote.html', context)
+
+@login_required(login_url='/login')  # Check login
+def noteedit(request, id):
+    setting = Setting.objects.get(pk=1)
+    note = Note.objects.get(id=id)
+    if request.method == 'POST':
+        form = NoteForm(request.POST, request.FILES, instance=note)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Your Note Updated Successfuly')
+            return HttpResponseRedirect('/user/notes')
+        else:
+            messages.success(request, 'Product Form Error: ' + str(form.errors))
+            return HttpResponseRedirect('/user/addnote/' + str(id))
+    else:
+        category = Category.objects.all()
+        form = NoteForm(instance=note)
+        context = {
+            'category': category,
+            'form': form,
+            'setting': setting,
+        }
+        return render(request, 'user_addnote.html', context)
+
+@login_required(login_url='/login')  # Check login
+def notedelete(request, id):
+    current_user = request.user
+    Note.objects.filter(id=id, user_id=current_user.id).delete()
+    messages.success(request, 'Note deleted...')
+    return HttpResponseRedirect('/user/notes')
+
+
+@login_required(login_url='/login')  # Check login
+def notes(request):
+    setting = Setting.objects.get(pk=1)
+    category = Category.objects.all()
+    current_user = request.user
+    note = Note.objects.filter( user_id= current_user.id, status='True')
+    context = {
+        'category': category,
+        'note': note,
+        'setting': setting,
+    }
+    return render(request, 'user_notes.html', context)

@@ -1,3 +1,4 @@
+from ckeditor.widgets import CKEditorWidget
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.contrib.auth.models import User
 from django.db import models
@@ -5,7 +6,7 @@ from django.contrib import admin
 
 # Create your models here.
 from django.db.models import Avg, Count
-from django.forms import ModelForm
+from django.forms import ModelForm, Select, TextInput, FileInput
 from django.utils.safestring import mark_safe
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
@@ -52,7 +53,7 @@ class Note(models.Model):
         ('True', 'True'),
         ('False', 'False'),
     )
-
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)  # relation with Category table
     title = models.CharField(max_length=200)
     keywords = models.CharField(blank=True,max_length=255)
@@ -126,3 +127,20 @@ class CommentForm(ModelForm):
     class Meta:
         model = Comment
         fields = ['subject', 'comment', 'rate']
+
+
+class NoteForm(ModelForm):
+    class Meta:
+        model = Note
+        fields = ['category', 'title', 'keywords', 'description', 'image',  'detail', 'slug']
+        widgets = {
+            'category': Select(attrs={'class': 'input', 'placeholder': 'amount'}, choices={Category.objects.all()}),
+            'title': TextInput(attrs={'class': 'input', 'placeholder': 'title'}),
+            'keywords': TextInput(attrs={'class': 'input', 'placeholder': 'keywords'}),
+            'description': TextInput(attrs={'class': 'input', 'placeholder': 'description'}),
+            'image': FileInput(attrs={'class': 'input', 'placeholder': 'image', }),
+            'detail': CKEditorWidget(),  # Ckeditor input
+        }
+
+        def get_absolute_url(self):
+            return reverse('addproduct', kwargs={'slug': self.slug})

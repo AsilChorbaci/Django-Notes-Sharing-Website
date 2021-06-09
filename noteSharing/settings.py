@@ -54,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
 ]
 
 ROOT_URLCONF = 'noteSharing.urls'
@@ -148,3 +149,12 @@ CKEDITOR_CONFIGS = {
 }
 
 ###################################
+
+# LANGUAGES = [
+#     ('en', _('English')),
+#     ('tr', _('Turkish')),
+# ]
+#
+# LOCALE_PATHS = (
+#     os.path.join(BASE_DIR, 'locale'),
+# )
