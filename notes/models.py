@@ -59,6 +59,7 @@ class Note(models.Model):
     keywords = models.CharField(blank=True,max_length=255)
     description = models.CharField(blank=True,max_length=255)
     image = models.ImageField(blank=True, upload_to='images/')
+    file = models.FileField(blank=True, upload_to='images/')
     detail = RichTextUploadingField()
     slug = models.SlugField(null=False, unique=True)
     status = models.CharField(max_length=10, choices=STATUS)
@@ -115,7 +116,7 @@ class Comment(models.Model):
     subject= models.CharField(max_length=50)
     comment = models.TextField(max_length=50, blank=True)
     rate= models.IntegerField(blank=True)
-    status = models.CharField(max_length=10, choices=STATUS, default='True')
+    status = models.CharField(max_length=10, choices=STATUS, default='False')
     ip = models.CharField(blank=True,max_length=20 )
     create_at=models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
@@ -132,15 +133,22 @@ class CommentForm(ModelForm):
 class NoteForm(ModelForm):
     class Meta:
         model = Note
-        fields = ['category', 'title', 'keywords', 'description', 'image',  'detail', 'slug']
+        fields = ['category', 'title', 'keywords', 'description', 'image', 'file',  'detail', 'slug']
         widgets = {
             'category': Select(attrs={'class': 'input', 'placeholder': 'amount'}, choices={Category.objects.all()}),
             'title': TextInput(attrs={'class': 'input', 'placeholder': 'title'}),
             'keywords': TextInput(attrs={'class': 'input', 'placeholder': 'keywords'}),
             'description': TextInput(attrs={'class': 'input', 'placeholder': 'description'}),
             'image': FileInput(attrs={'class': 'input', 'placeholder': 'image', }),
+            'file': FileInput(attrs={'class': 'input', 'placeholder': 'file', }),
             'detail': CKEditorWidget(),  # Ckeditor input
         }
 
         def get_absolute_url(self):
-            return reverse('addproduct', kwargs={'slug': self.slug})
+            return reverse('addnote', kwargs={'slug': self.slug})
+
+
+class NoteImageForm(ModelForm):
+    class Meta:
+        model = Images
+        fields = ['title', 'image']

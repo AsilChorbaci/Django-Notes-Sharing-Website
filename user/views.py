@@ -1,3 +1,6 @@
+import mimetypes
+import os
+
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
@@ -7,16 +10,18 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 from home.models import Setting, FAQ
-from notes.models import Category, Note, Comment, NoteForm
+from notes.models import Category, Note, Comment, NoteForm, Images, NoteImageForm
 from user.forms import SignUpForm, UserUpdateForm, ProfileUpdateForm
 from user.models import UserProfile
 
 
 def index(request):
+    setting = Setting.objects.get(pk=1)
     category = Category.objects.all()
     current_user = request.user
     profile = UserProfile.objects.get(pk=current_user.id)
-    context= {'category': category,
+    context= {'setting': setting,
+              'category': category,
               'profile': profile}
     return render(request, 'user_profile.html',context)
 
@@ -152,24 +157,25 @@ def faq(request):
 
 
 
-@login_required(login_url='/login')  # Check login
+@login_required(login_url='/login')
 def addnote(request):
     setting = Setting.objects.get(pk=1)
     if request.method == 'POST':
         form = NoteForm(request.POST, request.FILES)
         if form.is_valid():
             current_user = request.user
-            data = Note()  # model ile bağlantı kur
+            data = Note()
             data.user_id = current_user.id
             data.category = form.cleaned_data['category']
             data.title = form.cleaned_data['title']
             data.keywords = form.cleaned_data['keywords']
             data.description = form.cleaned_data['description']
             data.image = form.cleaned_data['image']
+            data.file = form.cleaned_data['file']
             data.detail = form.cleaned_data['detail']
             data.slug = form.cleaned_data['slug']
-            data.status = 'True'
-            data.save()  # veritabanına kaydet
+            data.status = 'False'
+            data.save()
             messages.success(request, 'Your Content Insterted Successfuly')
             return HttpResponseRedirect('/user/notes')
         else:
@@ -221,10 +227,63 @@ def notes(request):
     setting = Setting.objects.get(pk=1)
     category = Category.objects.all()
     current_user = request.user
-    note = Note.objects.filter( user_id= current_user.id, status='True')
+    note = Note.objects.filter( user_id= current_user.id)
     context = {
         'category': category,
         'note': note,
         'setting': setting,
     }
     return render(request, 'user_notes.html', context)
+
+
+
+def noteaddimage(request, id):
+    if request.method == 'POST':
+        lasturl = request.META.get('HTTP_REFERER')
+        form = NoteImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            data = Images()
+            data.title = form.cleaned_data['title']
+            data.note_id = id
+            data.image = form.cleaned_data['image']
+            data.save()
+            messages.success(request, 'Your image has been successfuly uploaded')
+            return HttpResponseRedirect(lasturl)
+        else:
+            messages.warning(request, 'Form Error: ' + str(form.errors))
+            return HttpResponseRedirect(lasturl)
+    else:
+        note = Note.objects.get(id=id)
+        images = Images.objects.filter(note_id=id)
+        form = NoteImageForm()
+        context = {
+            'note': note,
+            'images': images,
+            'form': form,
+        }
+        return render(request, 'note_gallery.html', context)
+
+
+# Define function to download pdf file using template
+def download_pdf_file(request, filename):
+    category = Category.objects.all()
+    context = {'category': category,}
+    if filename != '':
+        # Define Django project base directory
+        BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        # Define the full file path
+        filepath = BASE_DIR + '/uploads/images/' + filename
+        # Open the file for reading content
+        path = open(filepath, 'rb')
+        # Set the mime type
+        mime_type, _ = mimetypes.guess_type(filepath)
+        # Set the return value of the HttpResponse
+        response = HttpResponse(path, content_type=mime_type)
+        # Set the HTTP header for sending to browser
+        response['Content-Disposition'] = "attachment; filename=%s" % filename
+        # Return the response value
+        return response
+    else:
+        # Load the template
+        return HttpResponseRedirect('/user/notes')
+        #return render(request, 'user_notes.html', context)

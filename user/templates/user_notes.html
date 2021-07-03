@@ -1,6 +1,7 @@
 {% extends "homebase.html" %}
-{% block title %} User Comments {% endblock %}
-
+{% block title %} User Notes {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+{% block description %} {{ setting.description }} {% endblock %}
 
 {% block content %}
     {% load static %}
@@ -13,12 +14,15 @@
 
             <table class="table table-bordered table-condensed">
                 <tr>
-                    <th class="text-left">Notlarım</th>
+                    <th class="text-left">My Notes</th>
                     <th class="text-left">Image</th>
                     <th class="text-left">Gallery</th>
                     <th class="text-left">Status</th>
                     <th class="text-left">Description</th>
                     <th class="text-left">Date</th>
+                    <th class="text-left">Edit</th>
+                    <th class="text-left">Delete</th>
+                    <th class="text-left">Click to Download</th>
                 </tr>
                 {% for rs in note %}
                     <tr>
@@ -31,6 +35,7 @@
                             <a href="/note/{{ rs.id }}/{{ rs.slug }}">
                             <img style="width: 150px; height: 50px;" src="{{ rs.image.url }}">
                             </a>
+                        </td>
                         <td class="text-left">
                             <a href="javascript:;" onclick="window.open('/user/noteaddimage/{{ rs.id }}', 'galley', 'height=600, width=800, top=50, left=150')">
                                 <img src="images/gallery " style="height: 50px;">
@@ -38,17 +43,20 @@
                         </td>
                         <td class="text-left">{{ rs.status }}</td>
                         <td class="text-left">{{ rs.description }}</td>
-                        <td class="text-left">{{ rs.created_at }}</td>
+                        <td class="text-left">{{ rs.create_at }}</td>
                         <td class="text-left">
                             <a class="btn btn-primary" href="/user/noteedit/{{ rs.id }}">Edit</a>
                         </td>
                         <td class="text-left">
                             <a onclick="return confirm('Will be Delete! Are you sure?')" class="btn btn-primary" href="/user/notedelete/{{ rs.id }}">Delete</a>
                         </td>
+                        <td class="text-left">
+{#                           <a href="{!! url 'download_pdf_file' filename='{{ rs.file.url }}' !!}">Download PDF</a>#}
+                            <a href="/user/downloadpdf/{{ rs.file.url }}">Download</a>
+                        </td>
                     </tr>
                 {% endfor %}
             </table>
         </div>
     </div>
-
 {% endblock %}

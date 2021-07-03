@@ -31,7 +31,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'order.apps.OrderConfig',
     'notes.apps.NotesConfig',
     'home.apps.HomeConfig',
     'user.apps.UserConfig',

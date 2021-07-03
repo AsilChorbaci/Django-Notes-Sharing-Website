@@ -15,9 +15,9 @@
           <div class="col-md-8">
             <div class="widget no-border m-0">
               <ul class="list-inline">
-                <li class="m-0 pl-10 pr-10"> <i class="fa fa-phone text-white"></i> <a class="text-white" href="#">123-456-789</a> </li>
+                <li class="m-0 pl-10 pr-10"> <i class="fa fa-phone text-white"></i> <a class="text-white" href="#">{{ setting.phone }}</a> </li>
                 <li class="text-white m-0 pl-10 pr-10"> <i class="fa fa-clock-o text-white"></i> Mon-Fri 8:00 to 2:00 </li>
-                <li class="m-0 pl-10 pr-10"> <i class="fa fa-envelope-o text-white"></i> <a class="text-white" href="#">contact@yourdomain.com</a> </li>
+                <li class="m-0 pl-10 pr-10"> <i class="fa fa-envelope-o text-white"></i> <a class="text-white" href="#">{{ setting.email }}</a> </li>
               </ul>
             </div>
           </div>
@@ -44,20 +44,19 @@
               <img src="{% static 'images/logo-wide.png' %}" alt="">
             </a>
             <ul class="menuzord-menu onepage-nav">
-                <li class="active"><a href="#home">Home</a></li>
+                <li class="active"><a href="/">Home</a></li>
 
                 <li><a href="/about">About</a></li>
+                <li><a href="/notes">Notes</a></li>
                 {% recursetree category %}
-                <li><a href="/category/{{ node.id }}/{{ node.slug }}" {% if not node.is_leaf_node %}{% endif %}>{{ node.title }}</a>
+                    <li><a href="/category/{{ node.id }}/{{ node.slug }}" {% if not node.is_leaf_node %}{% endif %}>{{ node.title }}</a>
                       {% if not node.is_leaf_node %}
                           <ul class="dropdown">
                              <li>{{ children }}</li>
                           </ul>
                       {% endif %}
-                </li>
+                    </li>
                 {% endrecursetree %}
-              <li><a href="#teachers">Teachers</a></li>
-              <li><a href="#gallery">Gallery</a></li>
               <li><a href="/contact">Contact</a></li>
               <li>
                   {% if user.id is not None %}
@@ -65,6 +64,8 @@
 
                         <ul class="dropdown">
                             <li><a href="/user">Profile</a></li>
+                            <li><a href="/user/notes">My Notes</a></li>
+                            <li><a href="/user/comments">My Comments</a></li>
                             <li><a href="/user/update">Update Profile</a></li>
                             <li><a href="/user/password">Update Password</a></li>
                             <li><a href="/logout">Logout</a></li>

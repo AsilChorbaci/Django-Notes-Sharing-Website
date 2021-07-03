@@ -1,18 +1,18 @@
- {% load static %}
+   {% load static %}
     <!-- Section: home -->
     <section id="home">
 
       <!-- Slider Revolution Start -->
       <div class="rev_slider_wrapper">
         <div class="rev_slider" data-version="5.0">
+
           <ul>
               <!-- SLIDE 2 -->
-              {% for rs in slider %}
+    {% for rs in slider %}
               <li data-index="rs-2" data-transition="slidingoverlayhorizontal" data-slotamount="default" data-easein="default" data-easeout="default" data-masterspeed="default" data-thumb="images/bg/bg1.jpg" data-rotate="0" data-saveperformance="off" data-title="Slide 2" data-description="">
               <!-- MAIN IMAGE -->
-              <img src="{{ rs.image.url }}"  alt=""  data-bgposition="center 40%" data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg" data-bgparallax="10" data-no-retina>
+                 <img src="{{ rs.image.url }}"  alt=""  data-bgposition="center 40%" data-bgfit="cover" data-bgrepeat="no-repeat" class="rev-slidebg" data-bgparallax="10" data-no-retina>
               <!-- LAYERS -->
-
               <!-- LAYER NR. 1 -->
               <div class="tp-caption tp-resizeme text-uppercase  bg-theme-colored-transparent text-white font-raleway border-left-theme-color-2-6px border-right-theme-color-2-6px pl-30 pr-30"
                 id="rs-2-layer-1"
@@ -60,7 +60,7 @@
                 data-splitin="none"
                 data-splitout="none"
                 data-responsive_offset="on"
-                style="z-index: 7; white-space: nowrap; font-weight:700; border-radius: 30px;">Category
+                style="z-index: 7; white-space: nowrap; font-weight:700; border-radius: 30px;">{{ rs.category.title }}
               </div>
 
               <!-- LAYER NR. 3 -->
@@ -85,7 +85,7 @@
                 data-splitin="none"
                 data-splitout="none"
                 data-responsive_offset="on"
-                style="z-index: 5; white-space: nowrap; letter-spacing:0px; font-weight:400;">We provides always our best services for our clients and  always<br> try to achieve our client's trust and satisfaction.
+                style="z-index: 5; white-space: nowrap; letter-spacing:0px; font-weight:400;">{{ rs.category.title }}
               </div>
 
               <!-- LAYER NR. 4 -->
@@ -108,15 +108,17 @@
                 data-splitin="none"
                 data-splitout="none"
                 data-responsive_offset="on"
-                style="z-index: 5; white-space: nowrap; letter-spacing:1px;"><a class="btn btn-default btn-circled btn-transparent pl-20 pr-20" href="#">Apply Now</a>
+                style="z-index: 5; white-space: nowrap; letter-spacing:1px;"><a class="btn btn-default btn-circled btn-transparent pl-20 pr-20" href="/note/{{ rs.id }}/{{ rs.slug }}">View</a>
               </div>
             </li>
-              {% endfor %}
+        {% endfor %}
           </ul>
+
         </div>
         <!-- end .rev_slider -->
       </div>
       <!-- end .rev_slider_wrapper -->
+
       <script>
         $(document).ready(function(e) {
           $(".rev_slider").revolution({

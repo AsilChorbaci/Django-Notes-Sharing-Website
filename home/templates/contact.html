@@ -1,5 +1,7 @@
 {% extends "homebase.html" %}
-{% block title %} {{ setting.title }} {% endblock %}
+{% block title %} Contact Us {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+{% block description %} {{ setting.description }} {% endblock %}
 
 
 {% block content %}
@@ -33,28 +35,26 @@
             <div class="contact-info text-center pt-60 pb-60 border-right">
               <i class="fa fa-phone font-36 mb-10 text-theme-colored"></i>
               <h4>Call Us</h4>
-              <h6 class="text-gray">Phone: +262 695 2601</h6>
+              <h6 class="text-gray">Phone: {{ setting.phone }}</h6>
             </div>
           </div>
           <div class="col-sm-12 col-md-4">
             <div class="contact-info text-center  pt-60 pb-60 border-right">
               <i class="fa fa-map-marker font-36 mb-10 text-theme-colored"></i>
               <h4>Address</h4>
-              <h6 class="text-gray">121 King Street, Australia</h6>
+              <h6 class="text-gray">{{setting.address}}</h6>
             </div>
           </div>
           <div class="col-sm-12 col-md-4">
             <div class="contact-info text-center  pt-60 pb-60">
               <i class="fa fa-envelope font-36 mb-10 text-theme-colored"></i>
               <h4>Email</h4>
-              <h6 class="text-gray">you@yourdomain.com</h6>
+              <h6 class="text-gray">{{ setting.email }}</h6>
             </div>
           </div>
         </div>
         <div class="row pt-10">
           <div class="col-md-5">
-          <h4 class="mt-0 mb-30 line-bottom">Find Our Location</h4>
-          <!-- Google Map HTML Codes -->
           <div
             data-address="121 King Street, Melbourne Victoria 3000 Australia"
             data-popupstring-id="#popupstring1"

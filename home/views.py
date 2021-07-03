@@ -1,4 +1,6 @@
 import json
+import mimetypes
+import os
 
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
@@ -11,7 +13,6 @@ from notes.models import Category, Note, Images, Comment
 
 
 def index(request):
-
     setting = Setting.objects.get(pk=1)
     category = Category.objects.all()
     slider = Note.objects.all()[:3]
@@ -28,24 +29,40 @@ def category_notes(request,id,slug):
     return render(request,'notes.html',context)
 
 def note_list(request, id, slug):
-
+    setting = Setting.objects.get(pk=1)
     category = Category.objects.all()
     categorydata = Category.objects.get(pk=id)
-    notes = Note.objects.filter(category_id=id)
+    notes = Note.objects.filter(category_id=id , status=True)
+
     context = {'notes': notes,
                'category': category,
-               'categorydata': categorydata}
+               'categorydata': categorydata,
+               'setting': setting,
+               }
+    return render(request,'note_list.html',context)
+
+def note_list2(request):
+    setting = Setting.objects.get(pk=1)
+    category = Category.objects.all()
+    notes = Note.objects.filter(status=True)
+    context = {'notes': notes,
+               'category': category,
+               'setting':setting,}
     return render(request,'note_list.html',context)
 
 def note_details(request,id,slug):
     category = Category.objects.all()
     note = Note.objects.get(pk=id)
+    setting = Setting.objects.get(pk=1)
     images = Images.objects.filter(note_id=id)
     comment = Comment.objects.filter(note_id=id, status='True')
     context = {'note': note,
                'category': category,
                'images': images,
-               'comment': comment}
+               'comment': comment,
+               'setting': setting,
+               #'user_note': user_note
+    }
     return render(request,'note_details.html',context)
 
 def about(request):
@@ -109,3 +126,28 @@ def note_search_auto(request):
     data = 'fail'
   mimetype = 'application/json'
   return HttpResponse(data, mimetype)
+
+# Define function to download pdf file using template
+def download_pdf_file_home(request, filename):
+    category = Category.objects.all()
+    context = {'category': category,}
+    if filename != '':
+        # Define Django project base directory
+        BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        # Define the full file path
+        filepath = BASE_DIR + '/uploads/images/' + filename
+        # Open the file for reading content
+        path = open(filepath, 'rb')
+        # Set the mime type
+        mime_type, _ = mimetypes.guess_type(filepath)
+        # Set the return value of the HttpResponse
+        response = HttpResponse(path, content_type=mime_type)
+        # Set the HTTP header for sending to browser
+        response['Content-Disposition'] = "attachment; filename=%s" % filename
+        # Return the response value
+        return response
+    else:
+        # Load the template
+        return HttpResponseRedirect('/notes')
+        #return render(request, 'user_notes.html', context)
+

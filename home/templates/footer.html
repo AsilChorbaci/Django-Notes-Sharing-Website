@@ -9,11 +9,9 @@
             <p class="font-16 mb-10">GreenPeace is a library of Crowdfunding and Charity templates with predefined elements which helps you to build your own site. Lorem ipsum dolor sit amet consectetur.</p>
             <a class="font-14" href="#"><i class="fa fa-angle-double-right text-theme-colored"></i> Read more</a>
             <ul class="styled-icons icon-dark mt-20">
-              <li class="wow fadeInLeft" data-wow-duration="1.5s" data-wow-delay=".1s" data-wow-offset="10"><a href="#" data-bg-color="#3B5998"><i class="fa fa-facebook"></i></a></li>
-              <li class="wow fadeInLeft" data-wow-duration="1.5s" data-wow-delay=".2s" data-wow-offset="10"><a href="#" data-bg-color="#02B0E8"><i class="fa fa-twitter"></i></a></li>
-              <li class="wow fadeInLeft" data-wow-duration="1.5s" data-wow-delay=".3s" data-wow-offset="10"><a href="#" data-bg-color="#05A7E3"><i class="fa fa-skype"></i></a></li>
-              <li class="wow fadeInLeft" data-wow-duration="1.5s" data-wow-delay=".4s" data-wow-offset="10"><a href="#" data-bg-color="#A11312"><i class="fa fa-google-plus"></i></a></li>
-              <li class="wow fadeInLeft" data-wow-duration="1.5s" data-wow-delay=".5s" data-wow-offset="10"><a href="#" data-bg-color="#C22E2A"><i class="fa fa-youtube"></i></a></li>
+              <li class="wow fadeInLeft" data-wow-duration="1.5s" data-wow-delay=".1s" data-wow-offset="10"><a href="{{ setting.facebook }}" data-bg-color="#3B5998"><i class="fa fa-facebook"></i></a></li>
+              <li class="wow fadeInLeft" data-wow-duration="1.5s" data-wow-delay=".2s" data-wow-offset="10"><a href="{{ setting.twitter }}" data-bg-color="#02B0E8"><i class="fa fa-twitter"></i></a></li>
+              <li class="wow fadeInLeft" data-wow-duration="1.5s" data-wow-delay=".3s" data-wow-offset="10"><a href="{{ setting.instagram }}" data-bg-color="#05A7E3"><i class="fa fa-instagram"></i></a></li>
             </ul>
           </div>
         </div>
@@ -68,9 +66,9 @@
           <div class="widget dark">
             <h5 class="widget-title line-bottom">Quick Contact</h5>
             <ul class="list-border">
-              <li><a href="#">+(012) 345 6789</a></li>
-              <li><a href="#">hello@yourdomain.com</a></li>
-              <li><a href="#" class="lineheight-20">121 King Street, Melbourne Victoria 3000, Australia</a></li>
+              <li><a href="#">{{setting.phone}}</a></li>
+              <li><a href="#">{{setting.email}}</a></li>
+              <li><a href="#" class="lineheight-20">{{setting.address}}</a></li>
             </ul>
             <p class="font-16 text-white mb-5 mt-15">Subscribe to our newsletter</p>
             <form id="footer-mailchimp-subscription-form" class="newsletter-form mt-10">
@@ -98,7 +96,7 @@
             <div class="widget no-border m-0">
               <ul class="list-inline sm-text-center mt-5 font-12">
                 <li>
-                  <a href="#">FAQ</a>
+                  <a href="/faq">FAQ</a>
                 </li>
                 <li>|</li>
                 <li>

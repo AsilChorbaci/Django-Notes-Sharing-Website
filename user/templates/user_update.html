@@ -1,17 +1,28 @@
 {% extends "homebase.html" %}
 {% block title %} {{ setting.title }} {% endblock %}
-
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+{% block description %} {{ setting.description }} {% endblock %}
 
 {% block content %}
     {% load static %}
-    <!-- Section: Student Details -->
     <section class="">
       <div class="container">
         <div class="section-content">
           <div class="row">
             <div class="col-xs-12 col-sm-8 col-md-8 pull-right pl-60 pl-sm-15">
               <div>
-
+                  {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }}" role="alert">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                  {% endif %}
+                <h3>{{ user.first_name }} {{ user.last_name }}</h3>
+                <h5 class="text-theme-colored"></h5>
+                <p></p>
+              </div>
+                <div>
                   <form method="POST" enctype="multipart/form-data">
                       {%  csrf_token %}
                             <fieldset class="form-group">
@@ -22,216 +33,9 @@
                                 <button class="button" type="submit">Update</button>
                             </div>
                   </form>
-              </div>
-              <h3 class="text-uppercase title line-bottom mt-30 mb-30">Photo <span class="text-theme-color-2">Gallery</span></h3>
-              <!-- Portfolio Gallery Grid -->
-
-              <div class="gallery-isotope grid-4 gutter-small clearfix" data-lightbox="gallery">
-                <!-- Portfolio Item Start -->
-                <div class="gallery-item">
-                  <div class="thumb">
-                    <img alt="project" src="images/gallery/gallery-sm1.jpg" class="img-fullwidth">
-                    <div class="overlay-shade"></div>
-                    <div class="icons-holder">
-                      <div class="icons-holder-inner">
-                        <div class="styled-icons icon-sm icon-dark icon-circled icon-theme-colored">
-                          <a href="images/gallery/1.jpg"  data-lightbox-gallery="gallery"><i class="fa fa-picture-o"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                 </div>
-                <!-- Portfolio Item End -->
-
-                <!-- Portfolio Item Start -->
-                <div class="gallery-item">
-                  <div class="thumb">
-                    <img alt="project" src="images/gallery/gallery-sm2.jpg" class="img-fullwidth">
-                    <div class="overlay-shade"></div>
-                    <div class="icons-holder">
-                      <div class="icons-holder-inner">
-                        <div class="styled-icons icon-sm icon-dark icon-circled icon-theme-colored">
-                          <a href="images/gallery/2.jpg"  data-lightbox-gallery="gallery"><i class="fa fa-picture-o"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- Portfolio Item End -->
-
-                <!-- Portfolio Item Start -->
-                <div class="gallery-item">
-                  <div class="thumb">
-                    <img alt="project" src="images/gallery/gallery-sm3.jpg" class="img-fullwidth">
-                    <div class="overlay-shade"></div>
-                    <div class="icons-holder">
-                      <div class="icons-holder-inner">
-                        <div class="styled-icons icon-sm icon-dark icon-circled icon-theme-colored">
-                          <a href="images/gallery/3.jpg"  data-lightbox-gallery="gallery"><i class="fa fa-picture-o"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- Portfolio Item End -->
-
-                <!-- Portfolio Item Start -->
-                <div class="gallery-item">
-                  <div class="thumb">
-                    <img alt="project" src="images/gallery/gallery-sm4.jpg" class="img-fullwidth">
-                    <div class="overlay-shade"></div>
-                    <div class="icons-holder">
-                      <div class="icons-holder-inner">
-                        <div class="styled-icons icon-sm icon-dark icon-circled icon-theme-colored">
-                          <a href="images/gallery/4.jpg"  data-lightbox-gallery="gallery"><i class="fa fa-picture-o"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- Portfolio Item End -->
-
-                <!-- Portfolio Item Start -->
-                <div class="gallery-item">
-                  <div class="thumb">
-                    <img alt="project" src="images/gallery/gallery-sm5.jpg" class="img-fullwidth">
-                    <div class="overlay-shade"></div>
-                    <div class="icons-holder">
-                      <div class="icons-holder-inner">
-                        <div class="styled-icons icon-sm icon-dark icon-circled icon-theme-colored">
-                          <a href="images/gallery/5.jpg"  data-lightbox-gallery="gallery"><i class="fa fa-picture-o"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- Portfolio Item End -->
-
-                <!-- Portfolio Item Start -->
-                <div class="gallery-item">
-                  <div class="thumb">
-                    <img alt="project" src="images/gallery/gallery-sm6.jpg" class="img-fullwidth">
-                    <div class="overlay-shade"></div>
-                    <div class="icons-holder">
-                      <div class="icons-holder-inner">
-                        <div class="styled-icons icon-sm icon-dark icon-circled icon-theme-colored">
-                          <a href="images/gallery/6.jpg"  data-lightbox-gallery="gallery"><i class="fa fa-picture-o"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- Portfolio Item End -->
-
-                <!-- Portfolio Item Start -->
-                <div class="gallery-item">
-                  <div class="thumb">
-                    <img alt="project" src="images/gallery/gallery-sm7.jpg" class="img-fullwidth">
-                    <div class="overlay-shade"></div>
-                    <div class="icons-holder">
-                      <div class="icons-holder-inner">
-                        <div class="styled-icons icon-sm icon-dark icon-circled icon-theme-colored">
-                          <a href="images/gallery/7.jpg"  data-lightbox-gallery="gallery"><i class="fa fa-picture-o"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- Portfolio Item End -->
-
-                <!-- Portfolio Item Start -->
-                <div class="gallery-item">
-                  <div class="thumb">
-                    <img alt="project" src="images/gallery/gallery-sm8.jpg" class="img-fullwidth">
-                    <div class="overlay-shade"></div>
-                    <div class="icons-holder">
-                      <div class="icons-holder-inner">
-                        <div class="styled-icons icon-sm icon-dark icon-circled icon-theme-colored">
-                          <a href="images/gallery/8.jpg"  data-lightbox-gallery="gallery"><i class="fa fa-picture-o"></i></a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- Portfolio Item End -->
-              </div>
-              <!-- End Portfolio Gallery Grid -->
-
-              <h3 class="text-uppercase title line-bottom mt-30">Vedio <span class="text-theme-color-2 font-weight-700">Gallery</span></h3>
-              <div class="row">
-                <div class="col-md-6 mb-30">
-                  <div class="esc-heading lr-line left-heading">
-                      <div class="heading-line-bottom">
-                        <h4 class="heading-title">Vimeo</h4>
-                      </div>
-                  </div>
-                  <div class="fluid-video-wrapper">
-                    <iframe src="http://player.vimeo.com/video/24302498?title=0&amp;byline=0&amp;portrait=0" width="640" height="360"  title="Creative" allowfullscreen></iframe>
-                  </div>
-                </div>
-                <div class="col-md-6 mb-30">
-                  <div class="esc-heading lr-line left-heading">
-                    <div class="heading-line-bottom">
-                      <h4 class="heading-title">Youtube</h4>
-                    </div>
-                  </div>
-                  <div class="fluid-video-wrapper">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/oIDqz2BrVec" allowfullscreen></iframe>
-                  </div>
-                </div>
-              </div>
-              <h3 class="text-uppercase title line-bottom mt-30">List of <span class="text-theme-color-2 font-weight-700">Courses</span></h3>
-              <div class="row mb-15">
-                <div class="col-sm-6 col-md-4">
-                  <div class="thumb"> <img alt="featured project" src="images/project/lg1.jpg" class="img-fullwidth"></div>
-                </div>
-                <div class="col-sm-6 col-md-8">
-                  <h4 class="line-bottom mt-0 mt-sm-20">Accounting Technologies</h4>
-                  <ul class="review_text list-inline">
-                    <li><h4 class="mt-0"><span class="text-theme-color-2">Price :</span> $125</h4></li>
-                    <li>
-                      <div class="star-rating" title="Rated 4.50 out of 5"><span style="width: 90%;">4.50</span></div>
-                    </li>
-                  </ul>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam aliquam ipsum quis ipsum facilisis sit amet.Aliquam ipsum quis ipsum facilisis sit ame ipsum quis ipsum facilisis sit amet facilisis consecte.</p>
-                  <a class="btn btn-dark btn-theme-colored btn-sm text-uppercase mt-10" href="page-courses-accounting-technologies.html">view details</a>
-                </div>
-              </div>
-              <hr>
-              <div class="row mb-15">
-                <div class="col-sm-6 col-md-4">
-                  <div class="thumb"> <img alt="featured project" src="images/project/lg2.jpg" class="img-fullwidth"></div>
-                </div>
-                <div class="col-sm-6 col-md-8">
-                  <h4 class="line-bottom mt-0 mt-sm-20">Development Studies</h4>
-                  <ul class="review_text list-inline">
-                    <li><h4 class="mt-0"><span class="text-theme-color-2">Price :</span> $125</h4></li>
-                    <li>
-                      <div class="star-rating" title="Rated 4.50 out of 5"><span style="width: 90%;">4.50</span></div>
-                    </li>
-                  </ul>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam aliquam ipsum quis ipsum facilisis sit amet.Aliquam ipsum quis ipsum facilisis sit ame ipsum quis ipsum facilisis sit amet facilisis consecte.</p>
-                  <a class="btn btn-dark btn-theme-colored btn-sm text-uppercase mt-10" href="page-courses-development-studies.html">view details</a>
-                </div>
-              </div>
-              <hr>
-              <div class="row mb-15">
-                <div class="col-sm-6 col-md-4">
-                  <div class="thumb"> <img alt="featured project" src="images/project/lg3.jpg" class="img-fullwidth"></div>
-                </div>
-                <div class="col-sm-6 col-md-8">
-                  <h4 class="line-bottom mt-0 mt-sm-20">Modern Technologies</h4>
-                  <ul class="review_text list-inline">
-                    <li><h4 class="mt-0"><span class="text-theme-color-2">Price :</span> $125</h4></li>
-                    <li>
-                      <div class="star-rating" title="Rated 4.50 out of 5"><span style="width: 90%;">4.50</span></div>
-                    </li>
-                  </ul>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam aliquam ipsum quis ipsum facilisis sit amet.Aliquam ipsum quis ipsum facilisis sit ame ipsum quis ipsum facilisis sit amet facilisis consecte.</p>
-                  <a class="btn btn-dark btn-theme-colored btn-sm text-uppercase mt-10" href="page-courses-chemical-engineering.html">view details</a>
-                </div>
-              </div>
             </div>
+
             <div class="col-sx-12 col-sm-4 col-md-4 sidebar pull-left">
               <div class="doctor-thumb">
                 <img src="{{ profile.image.url }}" alt="">
@@ -239,17 +43,6 @@
               <h4 class="line-bottom">About Me:</h4>
               <div class="volunteer-address">
                 <ul>
-                  <li>
-                    <div class="bg-light media border-bottom-theme-colored-2px p-15 mb-20">
-                      <div class="media-left">
-                        <i class="fa fa-book text-theme-colored font-24 mt-5"></i>
-                      </div>
-                      <div class="media-body">
-                        <h5 class="mt-0 mb-0">Education:</h5>
-                        <p>Bachelor’s degree in Engineering<br>From Rutgers University, California.</p>
-                      </div>
-                    </div>
-                  </li>
                   <li>
                     <div class="bg-light media border-bottom-theme-colored-2px p-15 mb-20">
                       <div class="media-left">
@@ -290,96 +83,15 @@
                       </div>
                       <div class="media-body">
                         <h5 class="mt-0 mb-0">Web Address:</h5>
-                        <p>www.abc.com</p>
+                        <p></p>
                       </div>
                     </div>
                   </li>
                 </ul>
               </div>
-              <div class="mt-30 p-30" style="border: 10px solid #f1f1f1;">
-                <h5 class="text-theme-colored title-border mb-20">Testimonials</h5>
-                <div class="testimonial-carousel-info owl-nav-top">
-                  <div class="item">
-                    <div class="comment">
-                      <p>Lorem ipsum dolor sit ametconse ctetur adipisicing elitvolup tatem error sit qui dolorem facilis.</p>
-                    </div>
-                    <div class="content mt-20">
-                      <div class="thumb pull-right">
-                        <img class="img-circle" alt="" src="images/testimonials/s1.jpg">
-                      </div>
-                      <div class="patient-details text-right pull-right mr-20 mt-10">
-                        <h5 class="author">Jonathan Smith</h5>
-                        <h6 class="title">cici inc.</h6>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <div class="comment">
-                      <p>Lorem ipsum dolor sit ametconse ctetur adipisicing elitvolup tatem error sit qui dolorem facilis.</p>
-                    </div>
-                    <div class="content mt-20">
-                      <div class="thumb pull-right">
-                        <img class="img-circle" alt="" src="images/testimonials/s2.jpg">
-                      </div>
-                      <div class="patient-details text-right pull-right mr-20 mt-10">
-                        <h5 class="author">Jonathan Smith</h5>
-                        <h6 class="title">cici inc.</h6>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <div class="comment">
-                      <p>Lorem ipsum dolor sit ametconse ctetur adipisicing elitvolup tatem error sit qui dolorem facilis.</p>
-                    </div>
-                    <div class="content mt-20">
-                      <div class="thumb pull-right">
-                        <img class="img-circle" alt="" src="images/testimonials/s3.jpg">
-                      </div>
-                      <div class="patient-details text-right pull-right mr-20 mt-10">
-                        <h5 class="author">Jonathan Smith</h5>
-                        <h6 class="title">cici inc.</h6>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="clearfix mt-20">
-                <h4 class="line-bottom">Quick Contact:</h4>
-              </div>
-              <form id="contact-form" class="contact-form-transparent">
-                <div class="row">
-                  <div class="col-sm-12">
-                    <div class="form-group">
-                      <input type="text" placeholder="Enter Name" id="contact_name" name="contact_name" required="" class="form-control">
-                    </div>
-                  </div>
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <input type="text" placeholder="Enter Email" id="contact_email" name="contact_email" class="form-control" required="">
-                    </div>
-                  </div>
-                  <div class="col-sm-6">
-                    <div class="form-group">
-                      <input type="text" placeholder="Enter Subject" id="contact_subject" name="contact_subject" class="form-control" required="">
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <textarea rows="5" placeholder="Enter Message" id="contact_message" name="contact_message" required class="form-control"></textarea>
-                </div>
-                <div class="form-group">
-                  <button data-loading-text="Please wait..." class="btn btn-flat btn-dark btn-theme-colored mt-5" type="submit">Send your message</button>
-                </div>
-              </form>
             </div>
           </div>
         </div>
       </div>
     </section>
-
-  </div>
-  <!-- end main-content -->
-
-
-
 {% endblock %}

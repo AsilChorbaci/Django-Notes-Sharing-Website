@@ -12,4 +12,7 @@ urlpatterns = [
     path('addnote/', views.addnote, name='addnote'),
     path('notedelete/<int:id>', views.notedelete, name='notedelete'),
     path('noteedit/<int:id>', views.noteedit, name='noteedit'),
+    path('noteaddimage/<int:id>', views.noteaddimage, name='noteaddimage'),
+    path('downloadpdf//uploads/images/<filename>', views.download_pdf_file, name='download_pdf_file'),
+    #path('downloadpdf//', views.download_pdf_file, name='download_pdf_file'),
 ]

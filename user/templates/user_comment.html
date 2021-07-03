@@ -1,6 +1,7 @@
 {% extends "homebase.html" %}
 {% block title %} User Comments {% endblock %}
-
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+{% block description %} {{ setting.description }} {% endblock %}
 
 {% block content %}
     {% load static %}
@@ -17,11 +18,11 @@
                                 </div>
                             {% endfor %}
                   {% endif %}
-                <h3>{{ user.first_name }} {{ user.last_name }}</h3>
+                <h3>My Comments</h3>
 
                   <table class="table">
                             <tr>
-                                <th class="text-left">Notlar</th>
+                                <th class="text-left">Notes</th>
                                 <th class="text-left">Rate</th>
                                 <th class="text-left">Subject</th>
                                 <th class="text-left">Comment</th>
@@ -45,7 +46,7 @@
                                     <td class="text-left">{{ rs.status }}</td>
                                     <td class="text-left">{{ rs.create_at }}</td>
                                     <td class="text-left">
-                                        <a class="btn-primary" href="/user/deletecomment/{{ rs.id }}" onclick="return confirm('Will be Delete! Are you sure?')">Yorumu Sil</a>
+                                        <a class="btn-primary" href="/user/deletecomment/{{ rs.id }}" onclick="return confirm('Will be Delete! Are you sure?')">Delete</a>
                                     </td>
                                 </tr>
                             {% endfor %}
